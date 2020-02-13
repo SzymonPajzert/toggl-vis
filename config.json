@@ -1,0 +1,25 @@
+{
+    "fields": {
+        "project": "Project",
+        "name": "Description",
+        "start_date": "Start date",
+        "start_time": "Start time",
+        "end_date": "End date",
+        "end_time": "End time"
+    },
+    "colors": {
+        "Petri": "blue",
+        "Sport": "green",
+        "Piano": "blue",
+        "Meeting": "yellow",
+        "Vocabium": "blue",
+        "Organization": "yellow",
+        "French": "blue",
+        "Studies": "blue",
+        "Relax": "green",
+        "Sleep": "black",
+        "Distractions": "red",
+        "Reading": "orange"
+    },
+    "default_color": "grey"
+}

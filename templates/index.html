@@ -1,0 +1,77 @@
+<html>
+    <head>
+        <!-- TODO download minimized -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script>
+            console.log("Loaded");
+            let http = new XMLHttpRequest();
+            const url = "/get/10";
+            http.open("GET", url);
+
+            http.onreadystatechange = function () {
+                if (http.readyState === http.DONE && http.status === 200) {
+                    const data = JSON.parse(http.response);
+                    console.log(data);
+                    appendData(data.data);
+                }
+            };
+
+            http.send();
+
+            function getUniqueDates(data) {
+                const result = new Set();
+                for (const elt of data) {
+                    result.add(elt["date"]);
+                }
+                return result;
+            }
+
+            function convertTime(timeString) {
+                const timeArray = timeString.split(":").map((a) => parseInt(a));
+                return (timeArray[0] * 60 * 60 + timeArray[1] * 60 + timeArray[2]) / (60 * 60);
+            }
+
+            function appendData(data) {
+                console.log("Appending data");
+                const uniqueDates = getUniqueDates(data);
+                console.log(uniqueDates);
+
+                let dateEltMap = new Map();
+
+                const contentDiv = document.getElementById("content");
+                for (const date of uniqueDates) {
+                    const dateElt = document.createElement("div");
+                    dateElt.setAttribute("data-date", date);
+                    dateElt.setAttribute("class", "day");
+                    contentDiv.append(dateElt);
+                    dateEltMap[date] = dateElt;
+                }
+
+                console.log(dateEltMap);
+
+                for (const entry of data) {
+                    const startTime = convertTime(entry["start_time"]);
+                    const endTime = convertTime(entry["end_time"]);
+                    console.log(entry, endTime - startTime);
+                }
+            }
+        </script>
+        <style>
+            #container {
+                display:block;
+            }
+
+            .day {
+                width: 150px;
+                height: 600px;
+                border: 1px grey solid;
+                display:block;
+            }
+        </style>
+    </head>
+    <body>
+        This is index
+        <div id="content">
+        </div>
+    </body>
+</html>
