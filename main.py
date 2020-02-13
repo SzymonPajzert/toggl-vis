@@ -90,7 +90,7 @@ def enhance_data(config, max_size):
             entries = entry_split_by_day(entry)
             data.extend(entries)
             
-            if len(data) > max_size:
+            if max_size is not None and len(data) > max_size:
                 break
 
         if len(missing_colors) > 0:
@@ -101,8 +101,9 @@ def enhance_data(config, max_size):
 app = Flask(__name__)
 
 
+
 @app.route("/get/<int:n>")
-def get(n):
+def get_internal(n=None):
     config = read_config()
     data, config = enhance_data(config, n)
     return json.dumps({
@@ -111,6 +112,13 @@ def get(n):
         "data": data
     }), 200, {'ContentType': 'application/json'}
 
+@app.route("/get")
+def get_default():
+    return get_internal(None)
+
+@app.route("/get/<int:n>")
+def get(n):
+    return get_internal(n)
 
 @app.route("/")
 def main_page():

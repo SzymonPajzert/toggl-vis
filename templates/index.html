@@ -5,7 +5,7 @@
         <script>
             console.log("Loaded");
             let http = new XMLHttpRequest();
-            const url = "/get/10";
+            const url = "/get";
             http.open("GET", url);
 
             http.onreadystatechange = function () {
@@ -53,19 +53,36 @@
                     const startTime = convertTime(entry["start_time"]);
                     const endTime = convertTime(entry["end_time"]);
                     console.log(entry, endTime - startTime);
+
+                    const dateElt = dateEltMap[entry["date"]];
+                    
+                    let element = document.createElement("div");
+                    element.setAttribute("class", "entry");
+                    const height = 600 * (endTime - startTime) / 24;
+                    const topSpace = 600 * (startTime) / 24;
+                    const color = entry["color"];
+                    element.setAttribute("style", `height: ${height}px; top: ${topSpace}px; background-color: ${color}`)
+                    dateElt.append(element);
                 }
             }
         </script>
         <style>
             #container {
-                display:block;
+                display:inline;
             }
 
             .day {
-                width: 150px;
+                width: 100px;
                 height: 600px;
                 border: 1px grey solid;
-                display:block;
+                display: inline-block;
+                position: relative;
+                margin: 3px;
+            }
+
+            .entry {
+                width: 100%;
+                position: absolute;
             }
         </style>
     </head>
