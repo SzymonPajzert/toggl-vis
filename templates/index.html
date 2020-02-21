@@ -58,9 +58,13 @@
                     
                     let element = document.createElement("div");
                     element.setAttribute("class", "entry");
-                    const height = 600 * (endTime - startTime) / 24;
-                    const topSpace = 600 * (startTime) / 24;
+                    const height = 400 * (endTime - startTime) / 24;
+                    const topSpace = 400 * (startTime) / 24;
                     const color = entry["color"];
+                    let description = document.createElement("p");
+                    description.setAttribute("class", "description");
+                    description.innerHTML = entry["name"];
+                    element.append(description);
                     element.setAttribute("style", `height: ${height}px; top: ${topSpace}px; background-color: ${color}`)
                     dateElt.append(element);
                 }
@@ -72,8 +76,8 @@
             }
 
             .day {
-                width: 100px;
-                height: 600px;
+                width: 60px;
+                height: 400px;
                 border: 1px grey solid;
                 display: inline-block;
                 position: relative;
@@ -83,6 +87,24 @@
             .entry {
                 width: 100%;
                 position: absolute;
+            }
+
+            .entry .description {
+                visibility: hidden;
+                width: 120px;
+                background-color: black;
+                color: #fff;
+                text-align: center;
+                border-radius: 6px;
+                padding: 5px 0;
+
+                /* Position the tooltip */
+                position: absolute;
+                z-index: 1;
+            }
+
+            .entry:hover .description {
+                visibility: visible;
             }
         </style>
     </head>
