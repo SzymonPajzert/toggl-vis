@@ -3,34 +3,6 @@
         <!-- TODO download minimized -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script>
-            console.log("Loaded");
-            let http = new XMLHttpRequest();
-            const url = "/get";
-            http.open("GET", url);
-
-            http.onreadystatechange = function () {
-                if (http.readyState === http.DONE && http.status === 200) {
-                    const data = JSON.parse(http.response);
-                    console.log(data);
-                    appendData(data.data);
-                }
-            };
-
-            http.send();
-
-            function getUniqueDates(data) {
-                const result = new Set();
-                for (const elt of data) {
-                    result.add(elt["date"]);
-                }
-                return result;
-            }
-
-            function convertTime(timeString) {
-                const timeArray = timeString.split(":").map((a) => parseInt(a));
-                return (timeArray[0] * 60 * 60 + timeArray[1] * 60 + timeArray[2]) / (60 * 60);
-            }
-
             function appendData(data) {
                 console.log("Appending data");
                 const uniqueDates = getUniqueDates(data);
@@ -48,65 +20,8 @@
                 }
 
                 console.log(dateEltMap);
-
-                for (const entry of data) {
-                    const startTime = convertTime(entry["start_time"]);
-                    const endTime = convertTime(entry["end_time"]);
-                    console.log(entry, endTime - startTime);
-
-                    const dateElt = dateEltMap[entry["date"]];
-                    
-                    let element = document.createElement("div");
-                    element.setAttribute("class", "entry");
-                    const height = 400 * (endTime - startTime) / 24;
-                    const topSpace = 400 * (startTime) / 24;
-                    const color = entry["color"];
-                    let description = document.createElement("p");
-                    description.setAttribute("class", "description");
-                    description.innerHTML = entry["name"];
-                    element.append(description);
-                    element.setAttribute("style", `height: ${height}px; top: ${topSpace}px; background-color: ${color}`)
-                    dateElt.append(element);
-                }
             }
         </script>
-        <style>
-            #container {
-                display:inline;
-            }
-
-            .day {
-                width: 60px;
-                height: 400px;
-                border: 1px grey solid;
-                display: inline-block;
-                position: relative;
-                margin: 3px;
-            }
-
-            .entry {
-                width: 100%;
-                position: absolute;
-            }
-
-            .entry .description {
-                visibility: hidden;
-                width: 120px;
-                background-color: black;
-                color: #fff;
-                text-align: center;
-                border-radius: 6px;
-                padding: 5px 0;
-
-                /* Position the tooltip */
-                position: absolute;
-                z-index: 1;
-            }
-
-            .entry:hover .description {
-                visibility: visible;
-            }
-        </style>
     </head>
     <body>
         This is index

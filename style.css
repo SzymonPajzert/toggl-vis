@@ -1,0 +1,38 @@
+#content {
+    overflow: auto;
+    white-space: nowrap;
+    height: 800px;
+}
+
+.day {
+    width: 100px;
+    height: 400px;
+    border: 1px grey solid;
+    display: inline-block;
+    position: relative;
+    margin: 3px;
+    text-decoration: none;
+}
+
+.entry {
+    width: 100%;
+    position: absolute;
+}
+
+.entry .description {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.entry:hover .description {
+    visibility: visible;
+}
