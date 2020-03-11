@@ -1,4 +1,2 @@
 # Toogl visualizer
-Come on Fran, you can figure it out
-
-![](screenshot.png)
+Visualize your events recorded in toggl by providing `#workspaceId=<num>&apiToken=<apiToken>` in the URL
