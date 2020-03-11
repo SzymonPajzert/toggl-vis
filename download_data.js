@@ -1,4 +1,16 @@
+function getParameters() {
+    const localParams = window.location.hash;
+    const params = new URLSearchParams(localParams.replace("#", "?"));
 
+    if (params.has('workspaceId') && params.has('apiToken')) {
+        workspaceId = params.get('workspaceId');
+        apiToken = params.get('apiToken');
+    } else {
+        alert("You need to pass url params: workspaceId and apiToken");
+    }
+}
+
+getParameters();
 
 console.log("getting data");
 
