@@ -1,3 +1,15 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import TextField from '@material-ui/core/TextField';
+
+
+class Parameters extends React.Component {
+    render() {
+        <TextField />
+    }
+}
+
 function getParameters() {
     const localParams = window.location.hash;
     const params = new URLSearchParams(localParams.replace("#", "?"));
